@@ -131,6 +131,9 @@ impl RawDataGroup {
                 }
 
                 unexpected_id => {
+                    if unexpected_id == "##HL" {
+                        continue;
+                    }
                     return Err(Error::BlockIDError {
                         actual: unexpected_id.to_string(),
                         expected: "##DT / ##DV / ##DL".to_string(),
@@ -245,6 +248,9 @@ impl RawDataGroup {
                     current_block_address = data_list_block.next_dl_addr;
                 }
                 unexpected_id => {
+                    if unexpected_id == "##HL" {
+                        continue;
+                    }
                     return Err(Error::BlockIDError {
                         actual: unexpected_id.to_string(),
                         expected: "##DT / ##DV / ##DL / ##DZ".to_string(),

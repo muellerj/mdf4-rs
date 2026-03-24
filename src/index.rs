@@ -895,6 +895,10 @@ impl MdfIndex {
                 }
 
                 unexpected_id => {
+                    if unexpected_id == "##HL" {
+                        current_block_address = 0;
+                        continue;
+                    }
                     return Err(Error::BlockIDError {
                         actual: unexpected_id.to_string(),
                         expected: "##DT / ##DV / ##DL / ##DZ".to_string(),
@@ -1201,6 +1205,9 @@ impl MdfIndex {
                     next_addr = dl_block.next_dl_addr;
                 }
                 other => {
+                    if other == "##HL" {
+                        break;
+                    }
                     return Err(Error::BlockIDError {
                         actual: other.to_string(),
                         expected: "##SD or ##DL".to_string(),
